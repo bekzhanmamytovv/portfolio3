@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from "react"
 import { useTheme } from "next-themes"
-import { motion, AnimatePresence } from "motion/react"
+import { motion, AnimatePresence, type Variants } from "motion/react"
 import { MapPin, Sparkles, Clock, Star, MessageCircle, Phone, Send, ArrowRight, Menu, X, CalendarDays, Sun, Moon } from "lucide-react"
 import { siteData } from "@/lib/data"
 import { playTapSound, playOpenSound } from "@/lib/sound"
+import { FAQ } from "@/components/FAQ"
 
 const IMAGES = {
   avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80",
@@ -17,9 +18,9 @@ const IMAGES = {
   ]
 }
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] } }
 }
 
 function ThemeToggle() {
@@ -74,6 +75,7 @@ export default function CommercialLanding() {
           <nav className="hidden md:flex items-center gap-8">
             <button onClick={() => handleNavClick('services')} className="text-sm font-medium text-[#7a7369] dark:text-gray-400 hover:text-[#1a1816] dark:hover:text-white transition-colors">Услуги</button>
             <button onClick={() => handleNavClick('portfolio')} className="text-sm font-medium text-[#7a7369] dark:text-gray-400 hover:text-[#1a1816] dark:hover:text-white transition-colors">Работы</button>
+            <button onClick={() => handleNavClick('faq')} className="text-sm font-medium text-[#7a7369] dark:text-gray-400 hover:text-[#1a1816] dark:hover:text-white transition-colors">FAQ</button>
             <button onClick={() => handleNavClick('reviews')} className="text-sm font-medium text-[#7a7369] dark:text-gray-400 hover:text-[#1a1816] dark:hover:text-white transition-colors">Отзывы</button>
             <button onClick={() => handleNavClick('contacts')} className="text-sm font-medium text-[#7a7369] dark:text-gray-400 hover:text-[#1a1816] dark:hover:text-white transition-colors">Адрес</button>
           </nav>
@@ -107,6 +109,7 @@ export default function CommercialLanding() {
               <nav className="flex flex-col px-4 py-4 gap-4">
                 <button onClick={() => handleNavClick('services')} className="text-left font-medium text-[#2d2a26] dark:text-gray-200">Услуги</button>
                 <button onClick={() => handleNavClick('portfolio')} className="text-left font-medium text-[#2d2a26] dark:text-gray-200">Работы</button>
+                <button onClick={() => handleNavClick('faq')} className="text-left font-medium text-[#2d2a26] dark:text-gray-200">FAQ</button>
                 <button onClick={() => handleNavClick('reviews')} className="text-left font-medium text-[#2d2a26] dark:text-gray-200">Отзывы</button>
                 <button onClick={() => handleNavClick('contacts')} className="text-left font-medium text-[#2d2a26] dark:text-gray-200">Адрес</button>
               </nav>
@@ -218,6 +221,9 @@ export default function CommercialLanding() {
           </div>
         </motion.section>
 
+        {/* FAQ */}
+        <FAQ faqs={siteData.faq} />
+
         {/* Reviews */}
         <motion.section 
           id="reviews"
@@ -293,6 +299,12 @@ export default function CommercialLanding() {
         </motion.section>
         
       </div>
+
+      {/* Footer (Autonomous Generation Test) */}
+      <footer className="w-full py-8 text-center text-sm text-[#7a7369] dark:text-gray-500 border-t border-[#e8e4dc] dark:border-stone-800 bg-[#faf8f5] dark:bg-[#121212]">
+        <p>© {new Date().getFullYear()} {siteData.master.name}. Все права защищены.</p>
+        <p className="mt-2 text-xs opacity-70">Сделано с любовью к эстетике.</p>
+      </footer>
 
       {/* Sticky Mobile CTA (скрыт на десктопе) */}
       <div 
